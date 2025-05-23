@@ -7,28 +7,17 @@ function App() {
   const [count, setCount] = useState(0);
 
   return (
-    <>
-      <div>
-        <a href="https://wxt.dev" target="_blank">
-          <img src={wxtLogo} className="logo" alt="WXT logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>WXT + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the WXT and React logos to learn more
+    <div className="flex flex-col items-center">
+      <h1 className="text-3xl font-bold text-white">
+        Welcome to EcoShelf
+      </h1>
+      <h2 className="text-sm font-bold text-white pt-4">
+        A Chrome Extension for online shopping that calculates the emissions produced from shipping a product, recommending more sustainable alternatives with similar price points.
+      </h2>
+      <p className="text-white text-md pt-4">
+        Instead of telling consumers to completely change what they're shopping for, our project aims to help users sort through the dozens of near identical products on sites such as Amazon and allow them to prioritize sustainability without sacrificing on functionality or price. When users find a product they like, our extension will notify them of any other vendors selling the same product that would produce less emissions when shipping it, making sure to stay within a similar price point range.
       </p>
-    </>
+    </div>
   );
 }
 
