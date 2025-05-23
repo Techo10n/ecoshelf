@@ -6,7 +6,7 @@ import './App.css';
 function App() {
 
   return (
-    <div className="flex flex-col items-center border border-green-500 w-full h-full bg-black">
+    <div className="flex flex-col items-center border border-green-500 w-full h-full bg-black p-4">
       <h1 className="text-3xl font-bold text-white">
         Welcome to EcoShelf
       </h1>
