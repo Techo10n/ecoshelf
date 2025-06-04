@@ -1,7 +1,6 @@
 import { defineConfig } from 'wxt';
 import tailwindcss from '@tailwindcss/vite';
 
-// See https://wxt.dev/api/config.html
 export default defineConfig({
   modules: ['@wxt-dev/module-react'],
   srcDir: 'src',
@@ -13,7 +12,7 @@ export default defineConfig({
   manifest: {
     "manifest_version": 3,
     "name": "EcoShelf",
-    "description": "A Chrome Extension for online shopping that calculates the emissions produced from shipping a product, recommending more sustainable alternatives with similar price points.",
+    "description": "Calculate emissions from products when online shopping. Recommends more sustainable, similarly priced alternatives.",
     "version": "0.0.0",
     "icons": {
       "16": "icon/16.png",
@@ -34,20 +33,41 @@ export default defineConfig({
       "service_worker": "background.js"
     },
     "action": {
-      "default_title": "Default Popup Title",
+      "default_title": "EcoShelf",
       "default_popup": "popup.html"
-    },
-    "host_permissions": [
-      "*://*.google.com/*",
-      "http://localhost/*"
-    ],
-    "content_security_policy": {
-      "extension_pages": "script-src 'self' 'wasm-unsafe-eval' http://localhost:3000; object-src 'self';",
-      "sandbox": "script-src 'self' 'unsafe-inline' 'unsafe-eval' http://localhost:3000; sandbox allow-scripts allow-forms allow-popups allow-modals; child-src 'self';"
     },
     "permissions": [
       "tabs",
       "scripting"
+    ],
+    "host_permissions": [
+      "*://*.amazon.com/*",
+      "*://*.amazon.co.uk/*",
+      "*://*.amazon.ca/*",
+      "*://*.amazon.de/*",
+      "*://*.amazon.fr/*",
+      "*://*.amazon.it/*",
+      "*://*.amazon.es/*",
+      "*://*.amazon.co.jp/*",
+      "*://*.amazon.in/*"
+    ],
+    "content_scripts": [
+      {
+        "matches": [
+          "*://*.amazon.com/*",
+          "*://*.amazon.co.uk/*",
+          "*://*.amazon.ca/*",
+          "*://*.amazon.de/*",
+          "*://*.amazon.fr/*",
+          "*://*.amazon.it/*",
+          "*://*.amazon.es/*",
+          "*://*.amazon.co.jp/*",
+          "*://*.amazon.in/*"
+        ],
+        "js": [
+          "content-scripts/content.js"
+        ]
+      }
     ]
   },
 });
