@@ -119,7 +119,7 @@ function App() {
           <h1 className="text-2xl font-bold text-green-400">
             {hostname.includes("amazon.")
               ? "Loading Amazon data…"
-              : "Supported site, but not a product page."}
+              : "Shopping site detected, but not currently supported. Only Amazon product pages are supported."}
           </h1>
         </div>
       )}

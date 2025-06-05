@@ -15,11 +15,11 @@ export default defineConfig({
     "description": "Calculate emissions from products when online shopping. Recommends more sustainable, similarly priced alternatives.",
     "version": "0.0.0",
     "icons": {
-      "16": "icon/16.png",
-      "32": "icon/32.png",
-      "48": "icon/48.png",
-      "96": "icon/96.png",
-      "128": "icon/128.png"
+      "16": "logo16.png",
+      "32": "logo32.png",
+      "48": "logo48.png",
+      "96": "logo96.png",
+      "128": "logo128.png"
     },
     "commands": {
       "wxt:reload-extension": {
