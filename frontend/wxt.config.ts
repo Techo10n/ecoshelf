@@ -1,12 +1,8 @@
 import { defineConfig } from 'wxt';
-import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
   modules: ['@wxt-dev/module-react'],
   srcDir: 'src',
-  vite: () => ({
-    plugins: [tailwindcss()],
-  }),
   outDir: 'wxt-build',
 
   manifest: {
@@ -37,10 +33,13 @@ export default defineConfig({
       "default_popup": "popup.html"
     },
     "permissions": [
+      "activeTab",
+      "storage",
       "tabs",
       "scripting"
     ],
     "host_permissions": [
+      "http://localhost:8000/*",
       "*://*.amazon.com/*",
       "*://*.amazon.co.uk/*",
       "*://*.amazon.ca/*",
