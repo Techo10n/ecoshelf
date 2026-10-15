@@ -12,7 +12,7 @@
     "rootDir": "./",
     "allowSyntheticDefaultImports": true,
     "allowImportingTsExtensions": true,
-    "noEmit": true
+    "rewriteRelativeImportExtensions": true
   },
   "include": ["**/*.ts"],
   "exclude": ["node_modules", "dist"],

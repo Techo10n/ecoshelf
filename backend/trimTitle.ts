@@ -4,51 +4,37 @@ import type { Request, Response } from "express";
 
 const router = express.Router();
 
-// Changed from "/server/trim-title" to "/api/trim-title" to match background.ts
 router.post("/api/trim-title", async (req: Request, res: Response) => {
-  console.log("🟢 API: Received trim-title request:", req.body);
-  
   const apiKey = process.env.OPENAI_API_KEY;
-  
   if (!apiKey) {
-    console.error("🔴 API: Missing OPENAI_API_KEY environment variable");
+    console.error("Missing OPENAI_API_KEY");
     return res.status(500).json({ error: "Missing API key configuration" });
   }
-  
-  const openai = new OpenAI({ apiKey });
-  
-  const { title } = req.body;
-  if (!title) {
-    console.error("🔴 API: Missing title in request body");
-    return res.status(400).json({ error: "Missing title" });
+
+  const title = req.body?.title;
+  if (typeof title !== "string" || !title.trim() || title.length > 500) {
+    return res.status(400).json({ error: "title must be a non-empty string of at most 500 characters" });
   }
-  
+
   try {
-    console.log("🟡 API: Calling OpenAI with title:", title.substring(0, 50) + "...");
-    
-    const response = await openai.chat.completions.create({
+    const response = await new OpenAI({ apiKey }).chat.completions.create({
       model: "gpt-4.1-nano",
       messages: [
         {
           role: "system",
           content:
-            "You are a helpful assistant that trims product titles to be concise and relevant for immediate user understanding.",
+            "You turn a store's product title into a short, generic search term for finding the same kind of product elsewhere. " +
+            "Answer with the search term only: about five words or fewer, no brand, no quotes.",
         },
-        {
-          role: "user",
-          content: `Please trim the following product title to be concise and relevant for immediate user understanding. Keep it to around 5 words or less. It should just broadly define the product without too much detail: "${title}"`,
-        },
+        { role: "user", content: title },
       ],
     });
-    
-    const trimmedTitle = response.choices[0].message.content?.trim() ?? title;
-    console.log("🟢 API: OpenAI response:", trimmedTitle);
-    
+    const trimmedTitle = response.choices[0]?.message.content?.trim();
+    if (!trimmedTitle) throw new Error("Empty response");
     res.json({ trimmedTitle });
   } catch (error) {
-    console.error("🔴 API: OpenAI error:", error);
-    // Return original title as fallback
-    res.json({ trimmedTitle: title });
+    console.error("OpenAI request failed:", error instanceof Error ? error.message : error);
+    res.status(502).json({ error: "Couldn't shorten the title" });
   }
 });
 

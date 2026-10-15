@@ -28,3 +28,8 @@ wxt-build
 *.njsproj
 *.sln
 *.sw?
+
+# Build output
+dist
+test-results
+playwright-report
