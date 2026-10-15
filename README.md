@@ -8,8 +8,8 @@ Instead of telling consumers to completely change what they're shopping for, our
 
 This project is now organized into two separate Node.js projects:
 
-- **`backend/`** - Express.js API server that handles OpenAI integration
-- **`frontend/`** - WXT-based browser extension with React components
+- **`backend/`** - Express.js API server that handles OpenAI integration. It exists only to keep the API key out of the extension.
+- **`frontend/`** - WXT-based browser extension. Opening the popup on an Amazon product page reads the product's details and shipping info from the page.
 
 ## Development Setup
 
@@ -32,6 +32,15 @@ npm run dev
 ```
 
 This will start the WXT development server and load the extension in development mode.
+
+### Tests
+
+```bash
+cd frontend
+npm test
+```
+
+Builds the extension and runs Playwright: the scraper against saved Amazon pages in `tests/fixtures/`, and the popup end to end with the built extension loaded. When Amazon changes its layout, save a fresh product page as a fixture and the failing assertion names the field that broke.
 
 ### Running Both Together
 
